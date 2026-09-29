@@ -5,3 +5,5 @@ dist/
 *.egg-info
 test*.ipynb
 *api_key.txt
+.coverage
+.env
