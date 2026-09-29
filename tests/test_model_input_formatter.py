@@ -14,8 +14,7 @@ def test_gfs_solar():
     resource_type = 'solar'
     with pytest.warns(
          UserWarning,
-        match='You have specified a lead_time_to_start less than 1 h'
-    ) as warn:
+         match='You have specified a lead_time_to_start less than 1 h'):
         date, fxx_range, product, search_str = model_input_formatter(
             init_date, run_length, lead_time_to_start,
             model, resource_type)
@@ -67,8 +66,8 @@ def test_gefs_fxx_less_than_3():
     member = None
 
     with pytest.warns(
-        UserWarning,
-        match='You have specified a lead_time_to_start less than 3') as warn:
+         UserWarning,
+         match='You have specified a lead_time_to_start less than 3'):
             date, fxx_range, product, search_str = model_input_formatter(
                 init_date, run_length, lead_time_to_start,
                 model, resource_type,
@@ -173,6 +172,7 @@ def test_ifs(model_in, resource_type_in, product_out, search_str_out):
         model_in, resource_type_in)
     assert product == product_out
     assert search_str == search_str_out
+
 
 def test_ifs_pre_50r1():
     init_date = '2026-05-11 06:00'  # before 50r1 updgrade on 05-12
