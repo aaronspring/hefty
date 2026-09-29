@@ -1,9 +1,9 @@
 import pytest
-from pandas.testing import assert_series_equal, assert_frame_equal
-from numpy.testing import assert_allclose
+from pandas.testing import assert_frame_equal
 import pandas as pd
 
 from hefty.solar import get_solar_forecast
+
 
 # ignore xarray FutureWarnings (see https://github.com/blaylockbk/Herbie/issues/525).
 # ignore grib file removal warnings
@@ -29,7 +29,9 @@ def test_hrrr():
         hrrr_coarsen_window=None, priority=None,
         decomp_model=None)
     # hard-coded reference
-    valid_time = init_date + pd.Timedelta(hours=lead_time_to_start) + pd.Timedelta('30min')
+    valid_time = (init_date +
+                  pd.Timedelta(hours=lead_time_to_start) +
+                  pd.Timedelta('30min'))
     data = {
         'valid_time': [valid_time],
         'point': [0],
@@ -65,7 +67,9 @@ def test_gfs():
         hrrr_coarsen_window=None, priority=None,
         decomp_model=None)
     # hard-coded reference
-    valid_time = init_date + pd.Timedelta(hours=lead_time_to_start) + pd.Timedelta('30min')
+    valid_time = (init_date +
+                  pd.Timedelta(hours=lead_time_to_start) +
+                  pd.Timedelta('30min'))
     data = {
         'valid_time': [valid_time],
         'point': [0],

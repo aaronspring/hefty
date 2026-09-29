@@ -1,6 +1,5 @@
 import pytest
-from pandas.testing import assert_series_equal, assert_frame_equal
-from numpy.testing import assert_allclose
+from pandas.testing import assert_frame_equal
 import pandas as pd
 
 from hefty.solar import get_solar_forecast_fast
@@ -30,7 +29,9 @@ def test_hrrr():
         hrrr_coarsen_window=None, priority=None,
         decomp_model=None)
     # hard-coded reference
-    valid_time = init_date + pd.Timedelta(hours=lead_time_to_start) + pd.Timedelta('30min')
+    valid_time = (init_date +
+                  pd.Timedelta(hours=lead_time_to_start) +
+                  pd.Timedelta('30min'))
     data = {
         'valid_time': [valid_time],
         'point': [0],
@@ -65,7 +66,9 @@ def test_gfs():
         attempts=2, hrrr_hour_middle=None,
         hrrr_coarsen_window=None, priority=None,
         decomp_model=None)
-    valid_time = init_date + pd.Timedelta(hours=lead_time_to_start) + pd.Timedelta('30min')
+    valid_time = (init_date +
+                  pd.Timedelta(hours=lead_time_to_start) +
+                  pd.Timedelta('30min'))
     data = {
         'valid_time': [valid_time],
         'point': [0],
@@ -138,13 +141,14 @@ def test_gfs_more():
     data = {
         'valid_time': pd.DatetimeIndex(
             ['2026-09-29 12:30:00+00:00', '2026-09-29 13:30:00+00:00',
-            '2026-09-29 14:30:00+00:00']),
+             '2026-09-29 14:30:00+00:00']),
         'point': [0, 0, 0],
         'temp_air': [18.25, 20.75, 23.25],
-        'wind_speed': [1.5242455005645752, 1.78822922706604, 2.052213191986084],
+        'wind_speed': [1.5242455005645752, 1.78822922706604,
+                       2.052213191986084],
         'wind_direction': [105.40540313720703,
-                        111.26321411132812,
-                        117.12102508544922],
+                           111.26321411132812,
+                           117.12102508544922],
         'lead_time': [120.5, 121.5, 122.5],
         'ghi_csi': [0.917293933552123, 0.917293933552123, 0.917293933552123],
         'ghi': [124.70278528048202, 328.6619124858044, 519.2225172904367],
@@ -155,6 +159,7 @@ def test_gfs_more():
     rd_test = pd.DataFrame(data).set_index('valid_time')
     rd_test.index = rd_test.index.astype("datetime64[ns, UTC]")
     assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
+
 
 def test_ifs():
     latitude = 33.5
@@ -192,6 +197,7 @@ def test_ifs():
     rd_test.index = rd_test.index.astype("datetime64[ns, UTC]")
     assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
 
+
 def test_ifs_ens():
     latitude = 33.5
     longitude = -86.8
@@ -208,15 +214,18 @@ def test_ifs_ens():
     data = {
         'valid_time': pd.DatetimeIndex(
             ['2026-09-24 18:30:00+00:00',
-            '2026-09-24 19:30:00+00:00',
-            '2026-09-24 20:30:00+00:00'],
-            dtype='datetime64[ns, UTC]'),
+             '2026-09-24 19:30:00+00:00',
+             '2026-09-24 20:30:00+00:00'],
+             dtype='datetime64[ns, UTC]'),
         'point': [0, 0, 0],
         'temp_air': [24.22916603088379, 24.9375, 25.64583396911621],
-        'wind_speed': [2.751185894012451, 2.7751731872558594, 2.7991604804992676],
-        'wind_direction': [64.79106140136719, 59.31123352050781, 53.83140563964844],
+        'wind_speed': [2.751185894012451, 2.7751731872558594,
+                       2.7991604804992676],
+        'wind_direction': [64.79106140136719, 59.31123352050781,
+                           53.83140563964844],
         'lead_time': [18.5, 19.5, 20.5],
-        'ghi_csi': [0.7110017944688483, 0.7110017944688483, 0.7110017944688483],
+        'ghi_csi': [0.7110017944688483, 0.7110017944688483,
+                    0.7110017944688483],
         'ghi': [630.5753338474505, 564.0577841234704, 454.5918092647134],
         'dni': [350.66526297230183, 326.0851572150319, 329.759633861356],
         'dhi': [347.63148915692693, 325.52157056331725, 254.79483984928584],

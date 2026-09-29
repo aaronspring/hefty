@@ -1,10 +1,9 @@
 
 import pytest
-# from .conftest import assert_series_equal, assert_frame_equal
-# from numpy.testing import assert_allclose
 import pandas as pd
 
 from hefty.utilities import model_input_formatter
+
 
 def test_gfs_solar():
     init_date = '2026-09-20 00:00'
@@ -66,19 +65,19 @@ def test_gefs_fxx_less_than_3():
     member = None
 
     with pytest.warns(
-         UserWarning,
+        UserWarning,
          match='You have specified a lead_time_to_start less than 3'):
-            date, fxx_range, product, search_str = model_input_formatter(
+        date, fxx_range, product, search_str = model_input_formatter(
                 init_date, run_length, lead_time_to_start,
                 model, resource_type,
                 full_ens, get_ens_temp,
                 get_ens_wind, member
-                )
+            )
 
-            assert date == pd.Timestamp('2026-09-20 00:00:00')
-            assert fxx_range == range(3, 17, 3)
-            assert product == 'atmos.25'
-            assert search_str == 'DSWRF|:TMP:2 m above|[UV]GRD:10 m above'
+        assert date == pd.Timestamp('2026-09-20 00:00:00')
+        assert fxx_range == range(3, 17, 3)
+        assert product == 'atmos.25'
+        assert search_str == 'DSWRF|:TMP:2 m above|[UV]GRD:10 m above'
 
 
 def test_gefs_fxx_max_over_240():  

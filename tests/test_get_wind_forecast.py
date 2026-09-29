@@ -1,6 +1,5 @@
 import pytest
-from pandas.testing import assert_series_equal, assert_frame_equal
-from numpy.testing import assert_allclose
+from pandas.testing import assert_frame_equal
 import pandas as pd
 
 from hefty.wind import get_wind_forecast
@@ -28,7 +27,9 @@ def test_hrrr():
         lead_time_to_start, model, member=None,
         attempts=2)
     # hard-coded reference
-    valid_time = init_date + pd.Timedelta(hours=lead_time_to_start) + pd.Timedelta('30min')
+    valid_time = (init_date +
+                  pd.Timedelta(hours=lead_time_to_start) +
+                  pd.Timedelta('30min'))
     data = {
         'valid_time': [valid_time],
         'point': [0],
