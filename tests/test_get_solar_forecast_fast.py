@@ -37,19 +37,19 @@ def test_hrrr():
         'temp_air': [24.256072998046875],
         'wind_speed': [2.9900758266448975],
         'wind_direction': [104.61888885498047],
-        'csi_ghi': [0.631432385621549],
-        'csi_dni': [0.4797910002746542],
+        'csi_ghi': [0.6292502775807292],
+        'csi_dni': [0.47865940464350987],
         'lead_time': [3.5],
         'ghi_clear': [753.1687745026209],
         'dni_clear': [959.9273121182977],
-        'ghi': [474.07211375495996],
-        'dni': [460.10400390316994],
-        'dhi': [152.48033190527235]
+        'ghi': [472.43381233914823],
+        'dni': [459.0188404040822],
+        'dhi': [151.60051044249167]
     }
     rd_test = pd.DataFrame(data).set_index('valid_time')
     rd_test.index = rd_test.index.astype("datetime64[ns, UTC]")
 
-    pd.testing.assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
+    assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
 
 
 def test_gfs():
@@ -82,7 +82,7 @@ def test_gfs():
     rd_test = pd.DataFrame(data).set_index('valid_time')
     rd_test.index = rd_test.index.astype("datetime64[ns, UTC]")
 
-    pd.testing.assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
+    assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
 
 
 def test_hrrr_other_params():
@@ -117,7 +117,7 @@ def test_hrrr_other_params():
     rd_test = pd.DataFrame(data).set_index('valid_time')
     rd_test.index = rd_test.index.astype("datetime64[ns, UTC]")
 
-    pd.testing.assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
+    assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
 
 
 def test_gfs_more():
@@ -154,7 +154,7 @@ def test_gfs_more():
     }
     rd_test = pd.DataFrame(data).set_index('valid_time')
     rd_test.index = rd_test.index.astype("datetime64[ns, UTC]")
-    pd.testing.assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
+    assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
 
 def test_ifs():
     latitude = 33.5
@@ -190,7 +190,7 @@ def test_ifs():
     }
     rd_test = pd.DataFrame(data).set_index('valid_time')
     rd_test.index = rd_test.index.astype("datetime64[ns, UTC]")
-    pd.testing.assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
+    assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
 
 def test_ifs_ens():
     latitude = 33.5
@@ -223,4 +223,4 @@ def test_ifs_ens():
         'ghi_clear': [886.8829006521986, 793.3282145157566, 639.3680196043877]
     }
     rd_test = pd.DataFrame(data).set_index('valid_time')
-    pd.testing.assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
+    assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)

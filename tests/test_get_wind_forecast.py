@@ -26,27 +26,21 @@ def test_hrrr():
     rd = get_wind_forecast(
         latitude, longitude, init_date, run_length,
         lead_time_to_start, model, member=None,
-        attempts=2, hrrr_hour_middle=None,
-        hrrr_coarsen_window=None, priority=None,
-        decomp_model=None)
+        attempts=2)
     # hard-coded reference
     valid_time = init_date + pd.Timedelta(hours=lead_time_to_start) + pd.Timedelta('30min')
     data = {
         'valid_time': [valid_time],
         'point': [0],
-        'temp_air': [24.256072998046875],
-        'wind_speed': [2.9900758266448975],
-        'wind_direction': [104.61888885498047],
-        'csi_ghi': [0.631432385621549],
-        'csi_dni': [0.4797910002746542],
-        'lead_time': [3.5],
-        'ghi_clear': [753.1687745026209],
-        'dni_clear': [959.9273121182977],
-        'ghi': [474.07211375495996],
-        'dni': [460.10400390316994],
-        'dhi': [152.48033190527235]
+        'temp_air_2m': [24.256072998046875],
+        'pressure_0m': [99680.0],
+        'wind_speed_10m': [2.9900758266448975],
+        'wind_speed_80m': [3.66703462600708],
+        'wind_direction_10m': [104.61888885498047],
+        'wind_direction_80m': [105.27836608886719],
+        'lead_time': [3.5]
     }
     rd_test = pd.DataFrame(data).set_index('valid_time')
     rd_test.index = rd_test.index.astype("datetime64[ns, UTC]")
 
-    pd.testing.assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
+    assert_frame_equal(rd, rd_test, check_dtype=False, rtol=1e-4)
