@@ -962,8 +962,16 @@ def get_solar_forecast_fast(latitude, longitude, init_date, run_length,
             if hrrr_hour_middle is True:
                 # clear sky index
                 times = df.index
-                cs = loc.get_clearsky(times, model=model_cs,
-                                      **model_cs_kwargs)
+                sp = pvlib.solarposition.ephemeris(
+                    times,
+                    loc.latitude,
+                    loc.longitude
+                )
+                apparent_elevation = sp['apparent_elevation']
+                cs = pvlib.clearsky.simplified_solis(
+                    apparent_elevation,
+                    **model_cs_kwargs
+                )
                 df['csi_ghi'] = df['ghi'] / cs['ghi']
                 df['csi_dni'] = df['dni'] / cs['dni']
                 # avoid divide by zero issues
