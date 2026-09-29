@@ -6,3 +6,4 @@ dist/
 test*.ipynb
 *api_key.txt
 .coverage
+.env
