@@ -13,8 +13,9 @@ def test_model_pv_power():
     longitude = -86.8
     tz = 'UTC'
     freq = '5min'
-    times = pd.date_range('2020-12-21 18:00', '2020-12-21 18:20', freq=freq, tz=tz)
-    loc = pvlib.location.Location(latitude,longitude,tz)
+    times = pd.date_range('2020-12-21 18:00', '2020-12-21 18:20', freq=freq,
+                          tz=tz)
+    loc = pvlib.location.Location(latitude, longitude, tz)
     # model clear sky
     cs = loc.get_clearsky(times)
     # add temperature, wind, albedo
@@ -28,10 +29,10 @@ def test_model_pv_power():
     # mock horizon profile from
     # https://pvlib-python.readthedocs.io/en/stable/gallery/shading/plot_simple_irradiance_adjustment_for_horizon_shading.html
     hp = pd.Series([
-        10.7, 11.8, 11.5, 10.3, 8.0, 6.5, 3.8, 2.3, 2.3, 2.3, 4.6, 8.0, 10.3, 11.1,
-        10.7, 10.3, 9.2, 6.1, 5.3, 2.3, 3.1, 1.9, 1.9, 2.7, 3.8, 5.3, 6.5, 8.4,
-        8.8, 8.4, 8.4, 8.4, 6.5, 6.1, 6.5, 6.1, 7.3, 9.2, 8.4, 8.0, 5.7, 5.3, 5.3,
-        4.2, 4.2, 4.2, 7.3, 9.5], index=np.arange(0, 360, 7.5))
+        10.7, 11.8, 11.5, 10.3, 8.0, 6.5, 3.8, 2.3, 2.3, 2.3, 4.6, 8.0, 10.3,
+        11.1, 10.7, 10.3, 9.2, 6.1, 5.3, 2.3, 3.1, 1.9, 1.9, 2.7, 3.8, 5.3,
+        6.5, 8.4, 8.8, 8.4, 8.4, 8.4, 6.5, 6.1, 6.5, 6.1, 7.3, 9.2, 8.4, 8.0,
+        5.7, 5.3, 5.3, 4.2, 4.2, 4.2, 7.3, 9.5], index=np.arange(0, 360, 7.5))
 
     # define plants
     plant_dict = {
@@ -75,9 +76,12 @@ def test_model_pv_power():
         plant_data = plants_df.loc[plant].dropna().to_dict() 
         power_clear_sky[plant], _ = model_pv_power(
             cs, latitude=latitude, longitude=longitude, **plant_data)
-    expected_0 = [52.57427667, 52.67423954, 52.80234901, 52.9574905 , 53.13831252]
-    expected_1 = [57.73133267, 57.80169452, 57.89186071, 58.00109159, 58.12847753]
-    expected_2 = [81.97483617, 78.6345585 , 78.38894756, 78.08751467, 77.73026665]
+    expected_0 = [52.57427667, 52.67423954, 52.80234901, 52.9574905,
+                  53.13831252]
+    expected_1 = [57.7304743, 57.80085983, 57.8910615, 58.00032732,
+                  58.12774744]
+    expected_2 = [81.97457884, 78.63431208, 78.38870274, 78.08727182,
+                  77.73002612]
     assert_allclose(power_clear_sky[0].values, expected_0)
     assert_allclose(power_clear_sky[1].values, expected_1)
     assert_allclose(power_clear_sky[2].values, expected_2)
