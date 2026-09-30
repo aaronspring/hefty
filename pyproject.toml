@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hefty"
-version = "0.2.1"
+version = "0.3.0"
 description = "Some (relatively) lightweight short-term energy forecasting tools for solar, wind, and load."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 authors = [
   { name="Will Hobbs" },
 ]
@@ -19,8 +19,8 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
-    "herbie-data[scikit-learn] >= 2026.3.0",
-    "pvlib >= 0.13.1",
+    "herbie-data[scikit-learn] >= 2026.9.2",
+    "pvlib >= 0.16.1",
     "pandas >= 3.0.0",
     "urllib3 >= 2.6.0",
 ]
