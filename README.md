@@ -201,7 +201,7 @@ Those outputs could then be directly passed as inputs to `hefty.solar.get_solar_
 
 Model delays are more than just a fixed time: they can vary by lead time and by cycle time. And some cycles have different total run lengths and interval size for some models. `adjust_forecast_datetimes` adjusts for all of this for you.
 
-Delays calculated in `adjust_forecast_datetimes` are based on experiments in this notebook [docs\forecast_model_delays.ipynb](docs\forecast_model_delays.ipynb) (or see this markdown version, [docs\forecast_model_delays.md](docs\forecast_model_delays.md)), documentation published by ECMWF, and this cool dashboard by dynamical.org https://dynamical.org/status/.
+Delays calculated in `adjust_forecast_datetimes` are based on experiments in this notebook [docs/forecast_model_delays.ipynb](docs/forecast_model_delays.ipynb) (or see this markdown version, [docs/forecast_model_delays.md](docs/forecast_model_delays.md)), documentation published by ECMWF, and this cool dashboard by dynamical.org https://dynamical.org/status/.
 
 ## Local disk space
 The current version of hefty keeps copies of downloaded grib files on your local storage. This can result in a large amount of disk space being used up. Future versions of hefty may change this (see [issue #70](https://github.com/williamhobbs/hefty/issues/70)), but for now, users may need to monitor storage space and manually delete files if needed. 
